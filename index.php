@@ -25,43 +25,62 @@ class Prodotto {
 
 }
 
-class Utente extends CartaDiCredito {
+class Videogioco extends Prodotto {
+    protected $tipologia;
+    protected $valutazione;
+    protected $gamingHouse;
+    
+    public function __construct($nome, $descrizione, $prezzo, $tipologia, $valutazione, $gamingHouse)
+    {
+        $this->tipologia = $tipologia;
+        $this->valutazione = $valutazione;
+        $this->gamingHouse = $gamingHouse;
+        parent::__construct($nome, $descrizione, $prezzo);
+    }
+}
+
+class Utente {
     protected $username;
     protected $password;
     protected $email;
     protected $carteDiCredito = [];
 
-    public function __construct($username, $password, $email , $numeroCarta = 0, $scadenza = 0, $saldo = 0)
-    {
+    public function __construct($username, $password, $email){
         $this->username = $username;
         $this->password = $password;
         $this->email = $email;
-        parent::setCarta($numeroCarta, $scadenza, $saldo);
+     
     }
 
-    public function setCarta($numeroCarta,$scadenza,$saldo){
-       $cartadiCredito = [
-           "numero" => $numeroCarta,
-           "scadenza" => $scadenza,
-           "saldo" => $saldo
-       ];
-       
-       $this->carteDiCredito .= $cartadiCredito;
+    public function aggiugniCarta($carta){
+      
+       array_push($this->carteDiCredito,$carta );
     }
 
+   
+}
+
+class UtentePremium extends Utente {
+    protected $sconto;
+
+    public function __construct($username, $password, $email, $sconto = 15)
+    {
+        $this->sconto = $sconto;
+        parent::__construct($username, $password, $email); 
+    }
 
 
 }
 
 class CartaDiCredito {
     protected $numeroCarta;
-    protected $scandeza;
+    protected $scandenza;
     protected $saldo;
 
-    public function setCarta($numeroCarta, $scadenza, $saldo)
+    public function __construct($numeroCarta, $scandenza, $saldo)
     {
         $this->numeroCarta = $numeroCarta;
-        $this->scadenza = $scadenza;
+        $this->scandenza = $scandenza;
         $this->saldo = $saldo;
     }
 }
@@ -69,14 +88,22 @@ class CartaDiCredito {
 
 
 
-$prodotto1 = new Prodotto("Videogioco", "Un bel videogioco", "30 euro");
-$utente1 = new Utente('gerry','gerry94','gerry.hotmail.it');
-$utente1->setCarta("222-333-444-555","20-05-2023","500 euro");
-$cartaDiCredito1 = new CartaDiCredito("222-333-444-555","20-05-2023","500 euro");
+// $prodotto1 = new Prodotto("Videogioco", "Un bel videogioco", "30 euro");
+// $utente1 = new Utente('gerry','gerry94','gerry@hotmail.it');
+// $utente2 = new Utente('luca','luca97','luca@hotmail.it');
+// $utente3 = new UtentePremium("Gerry","evviva","email");
+// $carta1 = new CartaDiCredito("222-333-444-555","20-05-2023",500);
+// $carta2 = new CartaDiCredito("111-333-777-888","12-08-2025",800);
 
-    var_dump($prodotto1);
-    var_dump($utente1);
-    // var_dump($cartaDiCredito1);
+// $utente1->aggiugniCarta($carta1);
+// $utente1->aggiugniCarta($carta2);
+
+
+    
+// var_dump($utente3);
+//     var_dump($utente1);
+//     var_dump($carta1);
+
 
 ; ?>
 
